@@ -1,0 +1,16 @@
+
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>سجل الإجراءات</h1>
+    <ul>
+        {% for action in actions %}
+        <li>{{ action.timestamp }}: {{ action.action }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

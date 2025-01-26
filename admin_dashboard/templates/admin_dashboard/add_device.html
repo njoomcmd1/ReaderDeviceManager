@@ -1,0 +1,49 @@
+{% extends 'shared_app/base.html' %}
+
+{% block content %}
+<div class="py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center">
+            <h1 class="text-2xl font-semibold text-orange-800">الأجهزة</h1>
+            <a href="{% url 'shared_app:add_device' %}" 
+               class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700">
+                إضافة جهاز جديد
+            </a>
+        </div>
+        
+        <div class="mt-6 bg-white shadow overflow-hidden rounded-md">
+            <ul class="divide-y divide-gray-200">
+                {% for device in devices %}
+                <li class="px-6 py-4 hover:bg-orange-50">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <svg class="h-6 w-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+                                </svg>
+                            </div>
+                            <div class="mr-4">
+                                <h2 class="text-lg font-medium text-gray-900">{{ device.name }}</h2>
+                                <p class="text-sm text-gray-500">{{ device.device_number }}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <a href="{% url 'shared_app:edit_device' device.id %}" 
+                               class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700">
+                                تعديل
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                {% empty %}
+                <li class="px-6 py-4">
+                    <div class="text-center text-gray-500">
+                        لا توجد أجهزة مضافة حتى الآن
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

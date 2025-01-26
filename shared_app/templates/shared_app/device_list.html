@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang='ar' dir='rtl'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <!-- إضافة Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold text-orange-600 mb-6">قائمة الأجهزة</h1>
+        
+        <div class="bg-white shadow rounded-lg p-6">
+            <ul class="space-y-3">
+                {% for device in devices %}
+                <li class="hover:bg-orange-50 p-3 rounded-md transition-colors duration-150">
+                    <a href="{{ device.id }}" class="flex items-center text-gray-700 hover:text-orange-600">
+                        <svg class="h-5 w-5 ml-2 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                        {{ device.name }}
+                    </a>
+                </li>
+                {% empty %}
+                <li class="text-gray-500 text-center py-4">
+                    لا توجد أجهزة مضافة حالياً
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

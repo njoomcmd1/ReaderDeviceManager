@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قراءات المستخدم</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* تصميم الخلفية */
+        .background-container {
+            background: linear-gradient(135deg, #2e2e2e, #383838, #444444);
+            position: relative;
+            overflow: hidden;
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* أشكال خلفية */
+        .background-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .shape-1 {
+            top: 10%;
+            left: 20%;
+            width: 300px;
+            height: 300px;
+            background: #f97316;
+        }
+
+        .shape-2 {
+            bottom: 5%;
+            right: 15%;
+            width: 200px;
+            height: 200px;
+            background: #737373;
+        }
+
+        .shape-3 {
+            top: 50%;
+            left: 50%;
+            width: 400px;
+            height: 400px;
+            background: #facc15;
+            transform: translate(-50%, -50%);
+        }
+
+        /* تصميم الكارد */
+        .card {
+            position: relative;
+            background: linear-gradient(145deg, #3a3a3a, #4c4c4c);
+            border-radius: 15px;
+            overflow: hidden;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* أرقام خلفية */
+        .card::before {
+            content: attr(data-number);
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 4rem;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.05);
+            transform: rotate(-20deg);
+        }
+
+        /* النصوص */
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #facc15;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: #e0e0e0;
+        }
+
+        .card .info {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: #b0b0b0;
+        }
+
+        /* الشبكة */
+        .scrollable-container {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        /* عنوان */
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            color: #f97316;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* زر العودة */
+        .back-button {
+            display: inline-block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            color: white;
+            background: #f97316;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #facc15;
+        }
+    </style>
+</head>
+<body class="background-container">
+    <!-- أشكال خلفية -->
+    <div class="background-shape shape-1"></div>
+    <div class="background-shape shape-2"></div>
+    <div class="background-shape shape-3"></div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container mx-auto px-4 py-8 relative">
+        <!-- العنوان -->
+        <h1>قراءات المستخدم</h1>
+
+        <!-- زر العودة -->
+        <div class="text-center">
+            <a href="{% url 'user_dashboard:add_reading' %}" class="back-button">العودة إلى صفحة إضافة القراءات</a>
+        </div>
+
+        <!-- الشبكة لعرض القراءات -->
+        {% if readings %}
+        <div class="scrollable-container">
+            <div class="grid-container">
+                {% for reading in readings %}
+                <div class="card" data-number="{{ forloop.counter }}">
+                    <h3>{{ reading.device.name }}</h3>
+                    <p>القراءة: {{ reading.value }}</p>
+                    <p>التاريخ: {{ reading.timestamp|date:"Y-m-d H:i" }}</p>
+                    <div class="info">
+                        <p>إضافات أخرى: {{ reading.notes }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <p class="text-center text-gray-500 text-lg">لا توجد قراءات مضافة حتى الآن.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة الأجهزة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- الشريط العلوي -->
+    <nav class="bg-orange-600">
+        <div class="container mx-auto flex justify-between items-center h-16 px-4">
+            <a href="/" class="text-white text-lg font-bold">نظام إدارة الأجهزة</a>
+            <div class="flex space-x-4">
+                <a href="/login" class="text-white hover:bg-orange-500 px-3 py-2 rounded-md text-sm">تسجيل الدخول</a>
+                <a href="/register" class="text-white hover:bg-orange-500 px-3 py-2 rounded-md text-sm">إنشاء حساب</a>
+                <a href="/contact" class="text-white hover:bg-orange-500 px-3 py-2 rounded-md text-sm">تواصل معنا</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- العنوان الرئيسي -->
+    <header class="bg-white py-12 shadow-md">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">مرحبًا بك في نظام إدارة الأجهزة</h1>
+            <p class="text-gray-600 mb-6">
+                نظام متكامل لتسجيل وإدارة القراءات للأجهزة باستخدام تقنية إنترنت الأشياء (IoT).
+            </p>
+        </div>
+    </header>
+
+    <!-- الجزء الرئيسي -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="text-center mb-8">
+            <button class="px-6 py-3 bg-orange-600 text-white font-medium rounded-full hover:bg-orange-700 transition">
+                <a href="/devices">اطلع على بعض الأجهزة</a>
+            </button>
+        </div>
+
+        <!-- قائمة الأجهزة -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for device in devices %}
+            <div class="bg-white shadow-md rounded-md p-4">
+                <h2 class="text-lg font-bold text-gray-800">{{ device.name }}</h2>
+                <p class="text-gray-600">الموقع: {{ device.location }}</p>
+                <p class="text-gray-600">رقم الجهاز: {{ device.device_number }}</p>
+            </div>
+            {% empty %}
+            <p class="col-span-full text-center text-gray-500">لا توجد أجهزة متاحة حاليًا</p>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>

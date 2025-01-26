@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}نظام إدارة الأجهزة{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- شريط التنقل -->
+    {% if request.path != '/admin_dashboard/' %}
+    <nav class="bg-orange-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- اسم الموقع -->
+                <div class="flex-shrink-0">
+                    <a href="/" class="text-white font-bold text-xl">
+                        نظام إدارة الأجهزة
+                    </a>
+                </div>
+
+                <!-- روابط تسجيل الدخول وإنشاء حساب -->
+                <div class="flex items-center gap-4">
+                    <a href="/login" 
+                       class="text-white hover:bg-orange-500 px-4 py-2 rounded-md text-sm font-medium">
+                        تسجيل دخول
+                    </a>
+                    <a href="/register" 
+                       class="bg-white text-orange-600 hover:bg-orange-100 px-4 py-2 rounded-md text-sm font-medium">
+                        إنشاء حساب
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    {% endif %}
+
+    <!-- المحتوى الرئيسي -->
+    <main class="container mx-auto px-4 py-8">
+        {% block content %}
+        <!-- يتم استبدال هذا المحتوى في القوالب الفرعية -->
+        {% endblock %}
+    </main>
+
+    <!-- الفوتر (اختياري) -->
+    <footer class="bg-gray-200 py-4 mt-8">
+        <div class="text-center text-gray-600">
+            &copy; 2025 نظام إدارة الأجهزة
+        </div>
+    </footer>
+</body>
+</html>

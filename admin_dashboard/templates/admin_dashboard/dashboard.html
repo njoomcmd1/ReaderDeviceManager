@@ -1,0 +1,93 @@
+{% extends 'shared_app/base.html' %}
+
+{% block navbar %}
+<!-- تجاوز محتوى الشريط العلوي بجعل الكتلة فارغة -->
+{% endblock %} 
+
+{% block content %}
+<!-- الشريط العلوي -->
+<div class="flex justify-between items-center bg-gray-200 py-4 px-8 shadow-md">
+    <!-- عنوان النظام -->
+    <div>
+        <h1 class="text-2xl font-bold text-orange-600">نظام إدارة الأجهزة</h1>
+    </div>
+
+    <!-- أيقونة الترس -->
+    <div class="relative group">
+        <a href="/admin/" title="لوحة إدارة المشرف"
+           class="block p-4 bg-gray-300 rounded-full shadow-lg hover:bg-gray-400 transition-transform transform hover:scale-110">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-700" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M11 3a1 1 0 10-2 0v1.1a5.001 5.001 0 00-1.6.7L6.3 3.4a1 1 0 00-1.4 1.4l1.4 1.4a5.001 5.001 0 00-.7 1.6H3a1 1 0 100 2h1.1a5.001 5.001 0 00.7 1.6L3.4 13.7a1 1 0 101.4 1.4l1.4-1.4a5.001 5.001 0 001.6.7V17a1 1 0 102 0v-1.1a5.001 5.001 0 001.6-.7l1.4 1.4a1 1 0 001.4-1.4l-1.4-1.4a5.001 5.001 0 00.7-1.6H17a1 1 0 100-2h-1.1a5.001 5.001 0 00-.7-1.6l1.4-1.4a1 1 0 00-1.4-1.4l-1.4 1.4a5.001 5.001 0 00-1.6-.7V3zm-3 7a3 3 0 116 0 3 3 0 01-6 0z" clip-rule="evenodd" />
+            </svg>
+        </a>
+    </div>
+
+    <!-- أزرار تسجيل الدخول وإنشاء الحساب -->
+    <div class="flex gap-4">
+        <a href="/login" class="text-white bg-orange-600 hover:bg-orange-700 px-4 py-2 rounded-md shadow">تسجيل الدخول</a>
+        <a href="/register" class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md shadow">إنشاء حساب</a>
+    </div>
+</div>
+
+<!-- الأزرار الرئيسية -->
+<div class="grid grid-cols-3 gap-6 mt-8 px-8">
+    {% for button in buttons %}
+    <div class="group relative">
+        <a href="{{ button.url }}" class="block bg-gray-200 rounded-lg shadow-lg p-6 hover:bg-gray-300 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-orange-600" viewBox="0 0 20 20" fill="currentColor">
+                {{ button.icon }}
+            </svg>
+        </a>
+        <div class="absolute bottom-0 left-0 w-full text-center text-sm bg-gray-700 text-white py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            {{ button.text }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- عنوان لوحة التحكم -->
+<div class="text-center mt-12">
+    <h2 class="text-3xl font-bold text-gray-800">لوحة تحكم المشرف</h2>
+    <a href="http://127.0.0.1:8000/admin_dashboard/readings/"
+       class="text-white bg-green-600 hover:bg-green-700 px-4 py-2 rounded-md shadow mt-4 inline-block">
+        عرض القراءات
+    </a>
+</div>
+
+<!-- الأجهزة والقراءات -->
+<div class="grid grid-cols-2 gap-8 px-8 mt-8">
+    <!-- الأجهزة -->
+    <div>
+        <h3 class="text-xl font-semibold mb-4">الأجهزة المضافة</h3>
+        <input type="text" placeholder="بحث عن جهاز" class="mb-4 w-full border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500">
+        <div class="grid grid-cols-1 gap-4">
+            {% for device in devices %}
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h5 class="font-bold text-gray-800">{{ device.name }}</h5>
+                <p class="text-sm text-gray-600">الموقع: {{ device.location }}</p>
+                <p class="text-sm text-gray-600">الوظيفة: {{ device.function }}</p>
+            </div>
+            {% empty %}
+            <div class="text-gray-500">لا توجد أجهزة مضافة.</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- القراءات -->
+    <div>
+        <h3 class="text-xl font-semibold mb-4">قراءات المستخدمين</h3>
+        <input type="text" placeholder="بحث عن قراءة" class="mb-4 w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        <div class="grid grid-cols-1 gap-4">
+            {% for reading in readings %}
+            <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+                <h5 class="font-bold text-gray-800">{{ reading.device.name }}</h5>
+                <p class="text-sm text-gray-600">القراءة: {{ reading.value }}</p>
+                <p class="text-sm text-gray-600">التاريخ: {{ reading.timestamp|date:"Y-m-d H:i" }}</p>
+            </div>
+            {% empty %}
+            <div class="text-gray-500">لا توجد قراءات.</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>تفاصيل الجهاز: {{ device.name }}</h1>
+    <p>{{ device.description }}</p>
+    <h2>القراءات:</h2>
+    <ul>
+        {% for reading in readings %}
+        <li>{{ reading.timestamp }}: {{ reading.value }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

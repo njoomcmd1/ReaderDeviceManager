@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة قراءة جديدة</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- شريط التنقل العلوي -->
+    <nav class="bg-white shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-xl font-bold text-gray-800">إضافة قراءة جديدة</div>
+                <div>
+                    <a href="/dashboard/" class="text-blue-500 hover:text-blue-700">العودة إلى لوحة التحكم</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">إضافة قراءة جديدة</h2>
+            <form action="/readings/add/" method="POST">
+                <!-- CSRF Token -->
+                {% csrf_token %}
+
+                <!-- اختيار الجهاز -->
+                <div class="mb-4">
+                    <label for="device" class="block text-gray-700 font-bold mb-2">اختر الجهاز:</label>
+                    <select id="device" name="device" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <option value="" disabled selected>اختر الجهاز</option>
+                        <option value="device1">جهاز 1</option>
+                        <option value="device2">جهاز 2</option>
+                        <option value="device3">جهاز 3</option>
+                    </select>
+                </div>
+
+                <!-- درجة الحرارة -->
+                <div class="mb-4">
+                    <label for="temperature" class="block text-gray-700 font-bold mb-2">درجة الحرارة:</label>
+                    <input type="number" id="temperature" name="temperature" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="أدخل درجة الحرارة" required>
+                </div>
+
+                <!-- التاريخ -->
+                <div class="mb-4">
+                    <label for="date" class="block text-gray-700 font-bold mb-2">التاريخ:</label>
+                    <input type="date" id="date" name="date" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+
+                <!-- الوقت -->
+                <div class="mb-4">
+                    <label for="time" class="block text-gray-700 font-bold mb-2">الوقت:</label>
+                    <input type="time" id="time" name="time" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+
+                <!-- الوقت الحالي (تلقائي) -->
+                <div class="mb-4">
+                    <label for="current_time" class="block text-gray-700 font-bold mb-2">وقت الإدخال (تلقائي):</label>
+                    <input type="text" id="current_time" name="current_time" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100" value="{{ current_time }}" readonly>
+                </div>
+
+                <!-- الملاحظات -->
+                <div class="mb-4">
+                    <label for="notes" class="block text-gray-700 font-bold mb-2">الملاحظات:</label>
+                    <textarea id="notes" name="notes" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="أدخل ملاحظاتك"></textarea>
+                </div>
+
+                <!-- زر الإرسال -->
+                <div class="mt-6">
+                    <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">إضافة القراءة</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- شريط التنقل السفلي -->
+    <footer class="bg-white shadow-lg mt-8">
+        <div class="container mx-auto px-4 py-4">
+            <div class="text-center text-gray-600">
+                جميع الحقوق محفوظة © 2024
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

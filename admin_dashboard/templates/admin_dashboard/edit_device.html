@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>تعديل الجهاز: {{ device.name }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="name">اسم الجهاز:</label>
+        <input type="text" id="name" name="name" value="{{ device.name }}" required><br>
+        <label for="description">الوصف:</label>
+        <textarea id="description" name="description">{{ device.description }}</textarea><br>
+        <button type="submit">تحديث</button>
+    </form>
+</body>
+</html>

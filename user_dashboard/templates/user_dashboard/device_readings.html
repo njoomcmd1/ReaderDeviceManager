@@ -1,0 +1,46 @@
+
+{% extends 'shared_app/base.html' %}
+{% block title %}قراءات {{ device.name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h3>قراءات {{ device.name }}</h3>
+            <p>الموقع: {{ device.location }} | رقم الجهاز: {{ device.device_number }}</p>
+        </div>
+        <div class="card-body">
+            {% if readings %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>درجة الحرارة</th>
+                                <th>التاريخ والوقت</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for reading in readings %}
+                                <tr>
+                                    <td>{{ reading.temperature }}°C</td>
+                                    <td>{{ reading.timestamp|date:"Y-m-d H:i:s" }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    لا توجد قراءات مسجلة لهذا الجهاز
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="mt-3">
+        <a href="{% url 'user_dashboard:user_home' %}" class="btn btn-secondary">
+            العودة للصفحة الرئيسية
+        </a>
+    </div>
+</div>
+{% endblock %}

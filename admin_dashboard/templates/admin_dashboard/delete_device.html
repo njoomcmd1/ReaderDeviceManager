@@ -1,0 +1,16 @@
+
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>حذف الجهاز: {{ device.name }}</h1>
+    <p>هل أنت متأكد أنك تريد حذف هذا الجهاز؟</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">نعم، حذف</button>
+    </form>
+</body>
+</html>

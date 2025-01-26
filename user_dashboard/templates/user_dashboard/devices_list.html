@@ -1,0 +1,18 @@
+{% extends 'shared_app/base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">قائمة الأجهزة</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for device in devices %}
+        <div class="bg-white rounded-lg shadow-md p-4">
+            <h3 class="text-lg font-bold">{{ device.name }}</h3>
+            <p>الموقع: {{ device.location }}</p>
+            <p>رقم الجهاز: {{ device.device_number }}</p>
+        </div>
+        {% empty %}
+        <p>لا توجد أجهزة متاحة حالياً.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
