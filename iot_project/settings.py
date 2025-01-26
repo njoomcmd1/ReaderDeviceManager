@@ -9,7 +9,12 @@ SECRET_KEY = 'django-insecure-your-secret-key-here'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['mydevicesystem.com', 'www.mydevicesystem.com', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'mydevicesystem.com',
+    'www.mydevicesystem.com',
+    '127.0.0.1',
+    'frozen-ravine-83480.herokuapp.com'
+]
 
 
 INSTALLED_APPS = [
